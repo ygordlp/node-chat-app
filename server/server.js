@@ -8,7 +8,7 @@ var app = express();
 app.use(express.static(publicPath));
 
 app.listen(port, () => {
-    console.log('Server started at port', port);
+    console.log(`Server started at http://localhost:${port}`);
 });
 
-module.exports = {app};
+module.exports = { app };
