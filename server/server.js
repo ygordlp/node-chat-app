@@ -13,23 +13,29 @@ io.on('connection', (socket) => {
     console.log('New user connected');
 
     socket.emit('newMessage', {
-        from: 'chat',
+        from: 'Chatzasso',
         text: 'Welcome to Chatzasso',
+        createdAt: Date.now()
+    });
+
+    socket.broadcast.emit('newMessage', {
+        from: 'Chatzasso',
+        text: 'New user entered the room',
         createdAt: Date.now()
     });
 
     socket.on('createMessage', (message) => {
         console.log('Message received', message);
-        // io.emit('newMessage', {
-        //     from: message.from,
-        //     text: message.text,
-        //     createdAt: Date.now()
-        // });
-        socket.broadcast.emit('newMessage', {
+        io.emit('newMessage', {
             from: message.from,
             text: message.text,
             createdAt: Date.now()
         });
+        // socket.broadcast.emit('newMessage', {
+        //     from: message.from,
+        //     text: message.text,
+        //     createdAt: Date.now()
+        // });
     });
 
     socket.on('disconnect', () => {
